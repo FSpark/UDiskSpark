@@ -1,0 +1,8 @@
+E:\vb\C#\UDiskSpark\UDiskSpark\bin\Debug\UDiskSpark.exe
+E:\vb\C#\UDiskSpark\UDiskSpark\bin\Debug\UDiskSpark.pdb
+E:\vb\C#\UDiskSpark\UDiskSpark\obj\Debug\UDiskSpark.csprojResolveAssemblyReference.cache
+E:\vb\C#\UDiskSpark\UDiskSpark\obj\Debug\UDiskSpark.MainForm.resources
+E:\vb\C#\UDiskSpark\UDiskSpark\obj\Debug\UDiskSpark.Properties.Resources.resources
+E:\vb\C#\UDiskSpark\UDiskSpark\obj\Debug\UDiskSpark.csproj.GenerateResource.Cache
+E:\vb\C#\UDiskSpark\UDiskSpark\obj\Debug\UDiskSpark.exe
+E:\vb\C#\UDiskSpark\UDiskSpark\obj\Debug\UDiskSpark.pdb
