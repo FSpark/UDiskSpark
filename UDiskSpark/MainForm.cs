@@ -62,6 +62,7 @@ namespace UDiskSpark
             {
                 // TODO handle error
             }
+            System.Diagnostics.Debug.WriteLine(c + ":\\" + deviceNotifyHandle.ToString());
         }
 
 
@@ -197,11 +198,12 @@ namespace UDiskSpark
                             break;
                         case Win32.DBT_DEVICEARRIVAL://U盘插入
                             
-                                MessageBox.Show("w:" + m.WParam.ToString());
-                                MessageBox.Show("L:" + m.LParam.ToString());
+                                
+                               
                              var devType = Marshal.ReadInt32(m.LParam, 4);  
                         if (devType == Win32.DBT_DEVTYP_VOLUME)  
                         {
+                            MessageBox.Show("L:" + m.LParam.ToString());
                             MessageBox.Show("L:" + GetDrive(m.LParam));
                         }  
 
@@ -253,6 +255,8 @@ namespace UDiskSpark
                              MessageBox.Show("w:" + m.WParam.ToString());
                                 MessageBox.Show("L:" + m.LParam.ToString());
                             MessageBox.Show("haah");
+                            MessageBox.Show("MM:" + GetDrive(m.LParam));
+                            
                             s = DriveInfo.GetDrives();
                             foreach (DriveInfo drive in s)
                             {
@@ -356,9 +360,46 @@ namespace UDiskSpark
         }
         private static string GetDrive(IntPtr lParam)
         {
-            var volume = (Win32.DEV_BROADCAST_VOLUME)Marshal.PtrToStructure(lParam, typeof(Win32.DEV_BROADCAST_VOLUME));
-            var letter = GetLetter(volume.dbcv_unitmask);
-            return string.Format("{0}:\\", letter);
+            var volume2 = (Win32.DEV_BROADCAST_HDR)Marshal.PtrToStructure(lParam, typeof(Win32.DEV_BROADCAST_HDR));
+            if (volume2.dbcc_devicetype == 2)
+            {
+                var volume = (Win32.DEV_BROADCAST_VOLUME)Marshal.PtrToStructure(lParam, typeof(Win32.DEV_BROADCAST_VOLUME));
+                var letter = GetLetter(volume.dbcv_unitmask);
+                return string.Format("{0}:\\", letter);
+            }
+            else if (volume2.dbcc_devicetype == 6)
+            {
+                var volume = (Win32.DEV_BROADCAST_HANDLE)Marshal.PtrToStructure(lParam, typeof(Win32.DEV_BROADCAST_HANDLE));
+                return string.Format("{0}:\\", "TTTTT");
+
+            }
+            else
+            {
+                return "a";
+            }
+               
+          
+        }
+
+        /// <summary>
+        /// 根据驱动器掩码返回驱动器号数组
+        /// </summary>
+        /// <param name="Mask">掩码</param>
+        /// <returns>返回驱动器号数组</returns>
+        public static char[] GetVolumes(UInt32 Mask)
+        {
+            List<char> Volumes = new List<char>();
+
+            for (int i = 0; i < 32; i++)
+            {
+                uint p = (uint)Math.Pow(2, i);
+                if ((p | Mask) == p)
+                {
+                    Volumes.Add((char)('A' + i));
+                }
+            }
+
+            return Volumes.ToArray();
         }
         /// <summary>  
         /// 获得盘符  
