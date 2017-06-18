@@ -1,0 +1,8 @@
+UDiskSpark/bin/Debug/Everything
+UDiskSpark/bin/Debug/FastCopy M 3.2.5.36 x86
+UDiskSpark/bin/Debug/locate32-3.1.11.7100
+USBCopyer/bin/Debug
+*.pdb
+*.cache
+UDiskSpark/bin
+UDiskSpark/obj
